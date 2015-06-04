@@ -5,8 +5,6 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
   
-  after_initialize :update_role
-
   def admin?
     role == 'admin'
   end
@@ -19,10 +17,9 @@ class User < ActiveRecord::Base
     role == 'premium'
   end
 
-  private
-
-  def update_role
-    role = 'standard'
+  def upgrade
+    self.role = 'premium'
+    self.save
   end
 
 end

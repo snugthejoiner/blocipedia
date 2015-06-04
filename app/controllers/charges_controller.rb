@@ -25,7 +25,7 @@ class ChargesController < ApplicationController
       description: "Premium Membership - #{current_user.email}",
       currency: 'usd'
       )
-
+    current_user.upgrade
     flash[:notice] = "Thanks for upgrading to Premium, #{current_user.email}!"
     redirect_to root_path
 
