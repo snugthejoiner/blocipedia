@@ -1,15 +1,30 @@
-<h1>Wikis</h1>
-<% @wikis.each do |wiki| %>
-  <div class="media">
-    <div class="media-body">
-      <h4 class="media-heading">
-        <p><%= link_to wiki.title, wiki %></p>
-      </h4>
-    </div>
-  </div>  
+<div class="row">
+  <div class="col-md-12">
+    <h1>Wiki Directory</h1>
+  </div>
+</div>
+<% if user_signed_in? %>
+<div class="row">
+  <div class="col-md-12">
+    <% if policy(Wiki.new).create? %>
+      <%= link_to "Create A New Wiki", new_wiki_path, class: 'btn btn-success btn-lg' %>
+    <% end %>
+  </div>
+</div>
+<hr>
+<div class="row">
+  <div class="col-md-12">
+      <% @wikis.each do |wiki| %>
+      <div class="media">
+        <div class="media-body">
+          <h4 class="media-heading">
+            <p><%= link_to wiki.title, wiki %></p>
+          </h4>
+        </div>
+      </div>  
+    <% end %>
+  </div>
+</div>
+<% else %>
+  <%= link_to "Sign Up for an account to create & view Wikis", new_user_registration_path %>
 <% end %>
-
-<% if policy(Wiki.new).create? %>
-  <%= link_to "Create a new Wiki", new_wiki_path, class: 'btn btn-success' %>
-<% end %>
-

@@ -1,0 +1,10 @@
+  <%= form_for wiki do |f| %>
+    <div class="form-group">
+      <%= f.label :private, class: 'checkbox' do %>
+    </div>
+    <div class="form-group">
+        <%= f.check_box :private %> Private
+        <%= f.submit " update" , class: 'btn btn-xs btn-primary' %>
+      <% end %>
+    </div>
+  <% end %>

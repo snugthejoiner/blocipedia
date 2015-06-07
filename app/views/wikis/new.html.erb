@@ -1,12 +1,11 @@
-<%= form_for @wiki do |f| %>
-  <%= f.label :title %>
-  <%= f.text_field :title %>
-
-  <%= f.label :body %>
-  <%= f.text_area :body %>
-
-  <%= f.label :private %>
-  <%= f.check_box :private %>
-
-  <%= f.submit "Save" %>
-<% end %>
+<div class="row">
+  <div class="col-md-12">
+    <%= form_for @wiki do |f| %>
+    <div class="form-group">
+      <h1><%= f.label :title %> <%= f.text_field :title %></h1>
+      <p><%= f.text_area :body, :size => "75x10" %></p>
+      <p><%= f.label :private %> <%= f.check_box :private %></p>
+    <%= f.submit "Save" , class: 'btn btn-primary' %>
+    <% end %>
+  </div>
+</div>
