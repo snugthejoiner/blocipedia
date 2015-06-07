@@ -2,7 +2,7 @@
   <div class="col-md-12">
     <%= form_for @user do |f| %>
     <div class="form-group">
-      <h1>Username: <%=f.text_field :username %> <%= f.submit "Update" , class: 'btn btn-xs btn-primary' %></h1>
+      <h2>Username: <%=f.text_field :username %> <%= f.submit "Update" , class: 'btn btn-xs btn-primary' %></h2>
       <h2>Account Type: <%= @user.role.titleize %></h2>
       <p><% if current_user.role == 'premium' %>
           <%= link_to "Downgrade to Standard Account", user_downgrade_path(@user), method: :put %>
@@ -13,5 +13,7 @@
       <p><%= link_to "Email, Password and Membership Settings", edit_user_registration_path %></p>
     </div>
     <% end %>
+    <hr>
+    <%= link_to "Back", :back %>
   </div>
 </div>
