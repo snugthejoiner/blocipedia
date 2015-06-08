@@ -1,11 +1,15 @@
 class WikisController < ApplicationController
   def index
-    @wikis = Wiki.visible_to(current_user)
-    authorize @wikis
+    # if user_signed_in?
+      @wikis = policy_scope(Wiki)
+    # else
+     # redirect_to root_path
+    # end
   end
 
   def show
     @wiki = Wiki.find(params[:id])
+    authorize @wiki
   end
 
   def new

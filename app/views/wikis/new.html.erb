@@ -4,7 +4,9 @@
     <div class="form-group">
       <h1><%= f.text_field :title, placeholder: "Name your Wiki", :autofocus => true %></h1>
       <p><%= f.text_area :body, :size => "75x10" %></p>
-      <p><%= f.label :private %> <%= f.check_box :private %></p>
+      <% if current_user.role == 'admin' || current_user.role == 'premium' %>
+        <p><%= f.label :private %> <%= f.check_box :private %></p>
+      <% end %>
     <%= f.submit "Save" , class: 'btn btn-primary' %>
     <% end %>
     <%= link_to "Cancel", :back, class: 'btn btn-danger' %>
