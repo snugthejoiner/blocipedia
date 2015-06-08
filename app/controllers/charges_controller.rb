@@ -9,6 +9,7 @@ class ChargesController < ApplicationController
   end
 
   def create
+    @user = current_user
 
     #Amount of charge, in cents
     @amount = 100
@@ -25,7 +26,9 @@ class ChargesController < ApplicationController
       description: "Premium Membership - #{current_user.email}",
       currency: 'usd'
       )
-    current_user.upgrade
+    @user.upgrade
+    current_user.update_attributes(stripe_id: customer.id)
+    customer.subscriptions.create({:plan => "prem"})
     flash[:notice] = "Thanks for upgrading to Premium, #{current_user.email}!"
     redirect_to wikis_path
 
@@ -33,5 +36,5 @@ class ChargesController < ApplicationController
     flash[:error] = e.message
     redirect_to new_charge_path
 
-  end 
+  end
 end
