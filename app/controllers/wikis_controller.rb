@@ -1,10 +1,6 @@
 class WikisController < ApplicationController
   def index
-    # if user_signed_in?
       @wikis = policy_scope(Wiki)
-    # else
-     # redirect_to root_path
-    # end
   end
 
   def show
@@ -30,7 +26,9 @@ class WikisController < ApplicationController
   end
   
   def edit
+    @users = User.all
     @wiki = Wiki.find(params[:id])
+    @collaborators = Collaborator.all
     authorize @wiki
   end
 

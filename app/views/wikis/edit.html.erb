@@ -1,10 +1,27 @@
 <div class="row">
   <div class="col-md-12">
     <%= form_for @wiki do |f| %>
-    <div class="form-group">
-      <h1><%= f.text_field :title %></h1>
-      <p><%= f.text_area :body, :size => "75x10" %></p>
-    <%= f.submit "Save" , class: 'btn btn-primary' %>
+      <div class="form-group">
+        <h1><%= f.text_field :title %></h1>
+        <p><%= f.text_area :body, :size => "75x10" %></p>
+      <%= f.submit "Save" , class: 'btn btn-primary' %>
+      </div>
     <% end %>
-  </div>
+    <% if current_user.role == 'premium' %>
+    <hr>
+    <h3>Collaborators</h3>
+    <small>
+     <% @users.each do |user| %>
+      <div class="media">
+        <div class="media-body">
+          <% if @wiki.users.include? user %>
+            <p><%= link_to "Remove", remove_collaborator_path(wiki_id: @wiki.id, user_id: user.id), method: :delete, class: 'btn btn-xs btn-danger' %> <%=user.username %> | <%=user.email %></p>
+          <% else %>
+            <p><%= link_to "Add", wiki_collaborators_path(@wiki, user_id: user.id), method: :post, class: 'btn btn-xs btn-success' %> <%=user.username %> | <%=user.email %></p>
+          <% end %>
+        </div>
+      </div>  
+    <% end %>
+    <% end %>
+  </small>
 </div>

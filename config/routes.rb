@@ -5,7 +5,11 @@ Rails.application.routes.draw do
     put :downgrade
   end
     
-  resources :wikis
+  resources :wikis do
+    resources :collaborators, only: [:create]
+  end
+
+  delete 'remove_collaborator' => 'collaborators#destroy'
 
   resources :charges, only: [:new, :create]
 
