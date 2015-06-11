@@ -24,5 +24,4 @@ class CollaboratorsController < ApplicationController
     end
   end
 
-
 end

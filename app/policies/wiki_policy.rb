@@ -1,4 +1,16 @@
 class WikiPolicy < ApplicationPolicy
+
+  attr_reader :user, :wiki
+
+  def initialize(user, wiki)
+    @user = user
+    @wiki = wiki
+  end
+
+  def edit?
+    user.role == 'admin' || user.role == 'premium' || wiki.private == false || wiki.users.include?(user)
+  end
+
   class Scope
     attr_reader :user, :scope
   
