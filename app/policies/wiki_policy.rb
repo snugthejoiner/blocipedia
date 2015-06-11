@@ -11,6 +11,10 @@ class WikiPolicy < ApplicationPolicy
     user.role == 'admin' || user.role == 'premium' || wiki.private == false || wiki.users.include?(user)
   end
 
+  def destroy?
+    (wiki.user == user || user.role == 'admin') or wiki.private == false
+  end
+
   class Scope
     attr_reader :user, :scope
   
